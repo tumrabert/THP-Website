@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+
+    <!-- include only the Firebase features as you need -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>THP Sensor Report</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.8.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.8.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.8.2/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <!-- include highchartsjs to build the charts-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- include to use jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--include icons from fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- include Gauges Javascript library-->
+    <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+
+
+  </head>
+  <body>
+
+
+<div class="navbar">
+  <h1 style="cursor:pointer" onclick="location.reload()">THP Sensor</h1>
+
+</div>
+
+<div class="mainpage">
+<div class="leftcol">
+  <div class="clock">
+    <label>09:23</label>
+  </div>
+  <!-- CurTemp-->
+  <div class="orbox">
+    <label for="curtemp">Current Temperature</label>
+    <div class="CandF">
+      
+      <div class="temperature">
+        <div class="text_temp">
+          <label>27 C</label> </div>
+        <div class="gauge_temp">G</div>
+      </div>
+      
+
+      <div class="temperature">
+        <div class="text_temp">
+          <label>100 F</label></div>
+        <div class="gauge_temp">GG</div>
+      </div>
+      
+      
+    </div>
+    <div class="lastupdate"> last update</div>
+  </div>
+  <!-- AirPollution-->
+  <div class="orbox">
+    <label for="curtemp">AirPollution</label>
+    <div class="pm">PM 2.5
+      <div class="w3-light-grey">
+        <div id="myBar" class="w3-container w3-green w3-center" style="width:20%;align-items: center;">20%</div>
+      </div>
+    </div>
+    <div class="pm">PM 10
+      <div class="w3-light-grey">
+        <div id="myBar" class="w3-container w3-green w3-center" style="width:25%;align-items: center;">25%</div>
+      </div>
+
+    </div>
+    <div class="pm">PM 25
+      <div class="w3-light-grey">
+        <div id="myBar" class="w3-container w3-green w3-center" style="width:30%;align-items: center;">30%</div>
+      </div>
+
+    </div>
+    <div class="lastupdate"> last update</div>
+  </div>
+</div>
+<div class="rightcol">
+<div class="frame">
+  <div class="graph">
+    
+  </div>
+  <div class="gauge-panel"></div>
+</div>
+</div>
+</div>
+
+<script type="module" src="index.js"></script>
+  </body>
+</html>
