@@ -39,7 +39,7 @@ align-items: center;
 justify-content: space-between;
 flex-direction: row;
 
-height: 80%;
+height: 100%;
 width: 98.5%;
 
 
@@ -75,13 +75,11 @@ background:#f7ece1;
     flex-direction: column;
     /*justify-content:space-around*/
     width: 300px;
-    height: 300px;
     margin: 20px 10px 10px 10px;
     
     background: #F46036;
     border-radius: 25px 25px 25px 0px;
 }
-
 .clock{
     /*position: absolute;*/
 
@@ -129,17 +127,17 @@ border-radius: 25px 25px 25px 25px;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    
+    gap:10px;
     width: 90%;
-    height: 20%;
     margin: 20px 10px 20px 10px;
     
     background: #f46036;
     border-radius: 25px 25px 25px 25px;
 }
+.gauge-panel canvas{
+    margin: 20px 20px 20px 20px;
+}
 .orbox label{
-    width: 161px;
-    height: 63px;
     left: 16px;
     top: 7px;
     
@@ -153,7 +151,7 @@ border-radius: 25px 25px 25px 25px;
     
     color: #FFFFFF;
 }
-.lastupdate{
+.lastupdate label{
 
 padding-left: 10px;
 padding-bottom: 10px;
@@ -181,8 +179,6 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 18px;
-/* identical to box height */
-
 
 color: #EAFDF8;
 
@@ -195,6 +191,11 @@ text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     flex-direction: column;
 }
 .text_temp{
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction: column;
+    
 padding-left: 10px;
 width: 50%;
 }
@@ -204,7 +205,7 @@ width: 50%;
 font-family: 'Coiny';
 font-style: normal;
 font-weight: 400;
-font-size: 30px;
+font-size: 20px;
 line-height: 26px;
 
 color: #EAFDF8;
@@ -217,7 +218,10 @@ text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 10px 10px 10px 10px;
 }
 .gauge_temp{
-    padding: 5px 5px 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 0px 0px 0px 0px;
 }
 .clock label{
     left: 28px;
@@ -226,8 +230,14 @@ top: -3px;
 font-family: 'Coda';
 font-style: normal;
 font-weight: 400;
-font-size: 96px;
+font-size: 50px;
 line-height: 136px;
 
 color: #FFFFFF;
+}
+.graph{
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+    padding: 10px 10px 10px 10px;
 }

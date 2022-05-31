@@ -10,27 +10,33 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>THP Sensor Report</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.8.2/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.8.2/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.8.2/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script>
+      // Replace with your app config object
+      const firebaseConfig = {
+            apiKey: "AIzaSyAmhyLiWn4nLHv0BxCtb5NldybASBgIceQ",
+            authDomain: "esp8266-thpsensor.firebaseapp.com",
+            databaseURL: "https://esp8266-thpsensor-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "esp8266-thpsensor",
+            storageBucket: "esp8266-thpsensor.appspot.com",
+            messagingSenderId: "694067345087",
+            appId: "1:694067345087:web:85d8e728f12893f2b4b80a",
+            measurementId: "G-YHXTSF5JR4"
+      };
+
+      // Initialize firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Make auth and database references
+      const db = firebase.database();
+
+    </script>
 
     <!-- include highchartsjs to build the charts-->
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -54,63 +60,86 @@
 <div class="mainpage">
 <div class="leftcol">
   <div class="clock">
-    <label>09:23</label>
+    <label id="time"></label>
   </div>
   <!-- CurTemp-->
   <div class="orbox">
-    <label for="curtemp">Current Temperature</label>
+    <label for="curtemp">Temperature</label>
     <div class="CandF">
       
       <div class="temperature">
         <div class="text_temp">
-          <label>27 C</label> </div>
-        <div class="gauge_temp">G</div>
-      </div>
-      
+          <label id="celcius"></label> 
+          <div class="card">
+            <canvas id="gauge-temperature1"></canvas>
+          </div>
+        </div>
 
-      <div class="temperature">
         <div class="text_temp">
-          <label>100 F</label></div>
-        <div class="gauge_temp">GG</div>
+          <label id="faren"></label>
+          <div class="card">
+            <canvas id="gauge-temperature2"></canvas>
+          </div>
+        </div>
+
       </div>
-      
       
     </div>
-    <div class="lastupdate"> last update</div>
+    <div class="lastupdate"> <label id="lastUpdate1">last update</label></div>
   </div>
   <!-- AirPollution-->
   <div class="orbox">
     <label for="curtemp">AirPollution</label>
     <div class="pm">PM 2.5
-      <div class="w3-light-grey">
-        <div id="myBar" class="w3-container w3-green w3-center" style="width:20%;align-items: center;">20%</div>
+      <div style="background-color:white">
+        <div id="myBar25" style="height: 30px;width:20%;align-items: left;background-color: #04AA6D;line-height: 30px;color: black; "></div>
       </div>
-    </div>
+      </div>
     <div class="pm">PM 10
-      <div class="w3-light-grey">
-        <div id="myBar" class="w3-container w3-green w3-center" style="width:25%;align-items: center;">25%</div>
+      <div style="background-color:white">
+        <div id="myBar10" style="height: 30px;width:25%;align-items: left;background-color: #04AA6D;line-height: 30px;color: black; "></div>
       </div>
-
-    </div>
-    <div class="pm">PM 25
-      <div class="w3-light-grey">
-        <div id="myBar" class="w3-container w3-green w3-center" style="width:30%;align-items: center;">30%</div>
       </div>
-
-    </div>
-    <div class="lastupdate"> last update</div>
+    <div class="pm">PM 1.0
+      <div style="background-color:white">
+        <div id="myBar01" style="height: 30px;width:30%;align-items: left;background-color: #04AA6D;line-height: 30px;color: black; "></div>
+      </div>
+      </div>
+    <div class="lastupdate"> <label id="lastUpdate2">last update</label></div>
   </div>
 </div>
 <div class="rightcol">
 <div class="frame">
   <div class="graph">
-    
+            <p style="font-size: 20px;"><i class="fas fa-tint" style="color:#00add6;"></i> HUMIDITY CHART</p>
+            <div>
+              <p> Number of readings: <input type="number" id="charts-range" value=10></p>
+            </div>
+
+            <div class="cards">
+              <div class="card">
+                <div id="chart-humidity" class="chart-container"></div>
+              </div>
+            </div>
+            <!--<div id="chart-humidity"></div> -->
   </div>
-  <div class="gauge-panel"></div>
+  <div class="gauge-panel">
+        <!--HUMIDITY-->
+          <canvas id="gauge-humidity"></canvas>
+          <canvas id="gauge-PM25"></canvas>
+          <canvas id="gauge-PM10"></canvas>
+          <canvas id="gauge-PM01"></canvas>
+
+    </div>
+
+
+  </div>
 </div>
 </div>
 </div>
 
-<script type="module" src="index.js"></script>
+<script src="index.js"></script>
+<script src="charts-definition.js"></script>
+<script src="gauges-definition.js"></script>
   </body>
 </html>
